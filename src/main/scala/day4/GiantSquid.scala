@@ -20,8 +20,6 @@ object Board:
             (0 to 4).map(row => board.filter(_.y == row).forall(_.isMarked)).contains(true)
         def calculateScore(lastDraw:Int):Int = board.filter(p => !p.isMarked).map(_.value).sum * lastDraw
 
-    val height, width = 5 //fixed
-
     def apply(boardLines:Vector[String]):Board = 
         val rawBoard = boardLines.map(_.split(" ").toVector.filter(_.trim.nonEmpty))
         for
@@ -54,7 +52,7 @@ def winningBoard(input:(List[Int], Vector[Board]), lastDraw:Option[Int]):(Board,
     case (Nil, boards) => (Board(), -1) //Error condition, no winner
 
 def lastWinningBoard(input:(List[Int], Vector[Board]), stackOfWinBoard:List[(Board,Int)]):(Board,Int) = input match 
-    case (Nil, boards) => stackOfWinBoard.head
+    case (Nil, boards) => stackOfWinBoard.head // Uncaught error if no winner
     case (draw::xs, boards) => 
         val updatedBoards = boards.map(_.markIt(draw))
         if updatedBoards.exists(_.checkWinning)

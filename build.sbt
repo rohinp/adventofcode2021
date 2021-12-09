@@ -7,3 +7,6 @@ lazy val root = project
     scalaVersion := "3.1.0",
     fork := true
   )
+
+libraryDependencies +=
+  "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4"
